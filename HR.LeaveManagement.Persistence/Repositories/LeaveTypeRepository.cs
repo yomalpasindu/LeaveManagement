@@ -16,9 +16,9 @@ namespace HR.LeaveManagement.Persistence.Repositories
         {
             
         }
-        public Task<bool> IsLeaveTypeAvailable(int id)
+        public async Task<bool> IsLeaveTypeAvailable(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.LeaveTypes.AnyAsync(t => t.Id == id);
         }
 
         public async Task<bool> IsLeaveTypeUnique(string name)
