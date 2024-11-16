@@ -25,9 +25,10 @@ namespace HR.LeaveManagement.Application.Features.LeaveTypes.Commands.DeleteLeav
             _leaveTypeRepository = leaveTypeRepository;
         }
 
-        private Task<bool> LeaveTypeAvailable(DeleteLeaveTypeCommand command, CancellationToken token)
+        private async Task<bool> LeaveTypeAvailable(DeleteLeaveTypeCommand command, CancellationToken token)
         {
-            return _leaveTypeRepository.IsLeaveTypeAvailable(command.Id);
+            var leaveType= await _leaveTypeRepository.GetByIdAsync(command.Id);
+            return leaveType != null;
         }
     }
 }

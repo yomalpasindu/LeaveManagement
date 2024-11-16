@@ -26,8 +26,8 @@ namespace HR.LeaveManagement.Application.Features.LeaveTypes.Commands.UpdateLeav
             RuleFor(p => p.DefaultDays)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull()
-                .GreaterThan(100).WithMessage("{PropertyName} cannot exceed 100")
-                .LessThan(1).WithMessage("{PropertyName} cannot ne less than 1");
+                .LessThan(100).WithMessage("{PropertyName} cannot exceed 100")
+                .GreaterThan(1).WithMessage("{PropertyName} cannot ne less than 1");
 
             RuleFor(p => p)
                 .MustAsync(LeaveTypeNameUnique)

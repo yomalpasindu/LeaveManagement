@@ -1,6 +1,7 @@
 ﻿using HR.LeaveManagement.Domain;
 using HR.LeaveManagement.Domain.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,10 @@ namespace HR.LeaveManagement.Persistence.DatabaseContext
                                                                                        //ex : HR.LeaveManagement.Persistence.Configurations.LeaveTypeConfiguration also running |Thats happeining because its inherits IEntityTypeConfiguration
 
             base.OnModelCreating(modelBuilder);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

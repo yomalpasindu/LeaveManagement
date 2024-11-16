@@ -17,4 +17,13 @@
     <ProjectReference Include="..\HR.LeaveManagement.Domain\HR.LeaveManagement.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\LeaveAllocation\Commands\UpdateLeaveAllocation\" />
+    <Folder Include="Features\LeaveRequest\Commands\CreateLeaveRequest\" />
+    <Folder Include="Features\LeaveRequest\Commands\DeleteLeaveRequest\" />
+    <Folder Include="Features\LeaveRequest\Commands\UpdateLeaveRequest\" />
+    <Folder Include="Features\LeaveRequest\Queries\GetLeaveRequestDetails\" />
+    <Folder Include="Features\LeaveRequest\Queries\GetLeaveRequests\" />
+  </ItemGroup>
+
 </Project>
