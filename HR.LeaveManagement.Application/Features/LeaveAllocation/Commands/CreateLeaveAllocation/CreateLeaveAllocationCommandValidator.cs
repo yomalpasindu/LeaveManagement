@@ -11,19 +11,22 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Commands.Creat
 {
     public class CreateLeaveAllocationCommandValidator : AbstractValidator<CreateLeaveAllocationCommand>
     {
-        private readonly ILeaveAllocationRepository _leaveAllocationRepository;
+        private readonly ILeaveTypeRepository _leaveTypeRepository;
 
-        public CreateLeaveAllocationCommandValidator(ILeaveAllocationRepository leaveAllocationRepository)
+        public CreateLeaveAllocationCommandValidator(ILeaveTypeRepository leaveTypeRepository)
         {
-            _leaveAllocationRepository = leaveAllocationRepository;
-            
-            RuleFor(p=>p.LeaveTypeId)
-                .NotEmpty()
-                .WithMessage("{PropertyName} is required");
+            _leaveTypeRepository = leaveTypeRepository;
 
-            RuleFor(p => p.Period)
-                .LessThan(5).WithMessage("{PropertyName} should be less than 5")
-                .GreaterThan(1).WithMessage("{PropertyName} should be grater than 1");
+            RuleFor(p => p.LeaveTypeId)
+                .GreaterThan(0)
+                .MustAsync(LeaveTypeMustExists)
+                .WithMessage("{PropertyName} doest not exists");
+        }
+
+        private async Task<bool> LeaveTypeMustExists(int id, CancellationToken token)
+        {
+            var leaveType= await _leaveTypeRepository.GetByIdAsync(id);
+            return leaveType != null;
         }
     }
 }

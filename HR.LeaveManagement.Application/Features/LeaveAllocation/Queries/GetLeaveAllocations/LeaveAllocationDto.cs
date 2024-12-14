@@ -11,7 +11,7 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Queries.GetLea
     {
         public int Id { get; set; }
         public int NumberOfDays { get; set; }
-        public LeaveTypeDto LeaveType{ get; set; }
+        public LeaveTypeDto LeaveType{ get; set; }//we dont put Domain models in Dtos
         public int LeaveTypeId { get; set; }
         public int Period { get; set; }
     }

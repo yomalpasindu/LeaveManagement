@@ -16,7 +16,7 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Queries.GetLea
         private readonly IMapper _mapper;
         private readonly IAppLogger<GetLeaveAllocationDetailQuery> _logger;
 
-        public GetLeaveAllocationDetailQueryHandler(ILeaveAllocationRepository leaveAllocationRepository,IMapper mapper,IAppLogger<GetLeaveAllocationDetailQuery> logger)
+        public GetLeaveAllocationDetailQueryHandler(ILeaveAllocationRepository leaveAllocationRepository, IMapper mapper, IAppLogger<GetLeaveAllocationDetailQuery> logger)
         {
             _leaveAllocationRepository = leaveAllocationRepository;
             _mapper = mapper;
@@ -24,8 +24,8 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Queries.GetLea
         }
         public async Task<LeaveAllocationDetailsDto> Handle(GetLeaveAllocationDetailQuery request, CancellationToken cancellationToken)
         {
-            var leaveAllocation = await _leaveAllocationRepository.GetByIdAsync(request.id);
-            var data=_mapper.Map<LeaveAllocationDetailsDto>(leaveAllocation);
+            var leaveAllocation = await _leaveAllocationRepository.GetLeaveAllocationWithDetails(request.Id);
+            var data = _mapper.Map<LeaveAllocationDetailsDto>(leaveAllocation);
             _logger.LogInformation("Leave Allocation Details Retrived Successfully");
             return data;
         }

@@ -1,10 +1,13 @@
 ﻿using HR.LeaveManagement.Application.Contracts.Persistance;
+using HR.LeaveManagement.Application.Exceptions;
+using HR.LeaveManagement.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Commands.DeleteLeaveAllocation
 {
@@ -16,9 +19,15 @@ namespace HR.LeaveManagement.Application.Features.LeaveAllocation.Commands.Delet
         {
             _leaveAllocationRepository = leaveAllocationRepository;
         }
-        public Task<Unit> Handle(DeleteLeaveAllocationCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteLeaveAllocationCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var data = await _leaveAllocationRepository.GetByIdAsync(request.Id);
+
+            if (data == null)
+                throw new NotFoundException(nameof(LeaveAllocation), request.Id);
+
+            await _leaveAllocationRepository.DeleteAsync(data);
+            return Unit.Value;
         }
     }
 }
